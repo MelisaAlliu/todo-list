@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TODO LIST</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/parallax-efect.css" />
+    <link rel="stylesheet" href="assets/css/card-section.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <img src="assets/images/background-img1.jpg" class="background" />
+        <h1 class="title">Mastering Productivity</h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+          <path
+            fill="#5855b8"
+            fill-opacity="0.7"
+            d="M0,320L240,256L480,256L720,320L960,128L1200,256L1440,256L1440,320L1200,320L960,320L720,320L480,320L240,320L0,320Z"
+          ></path>
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 317">
+          <path
+            fill="#010028"
+            fill-opacity="2"
+            d="M0,320L360,288L720,288L1080,288L1440,64L1440,320L1080,320L720,320L360,320L0,320Z"
+          ></path>
+        </svg>
+      </header>
+
+      <section class="card-section">
+        <div class="card-title-container">
+          <img
+            class="card-title-image"
+            src="assets/images/card-img4.png"
+            alt=""
+          />
+          <h2 class="card-title">
+            Lost in the Maze? Here's Your Map to Personal Progress!
+          </h2>
+        </div>
+
+        <div class="card-container">
+          <div
+            class="card"
+            data-aos="fade-left"
+            data-aos-duration="1000"
+            data-aos-once="true"
+          >
+            <div class="imgbox">
+              <img src="assets/images/card-img1.png" />
+            </div>
+
+            <div class="content">
+              <h2>Define Clear Goals:</h2>
+              <p>
+                Set specific, achievable objectives to give your efforts purpose
+                and direction.
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="imgbox">
+              <img src="assets/images/card-img2.PNG" />
+            </div>
+
+            <div class="content">
+              <h2>Positive Surroundings:</h2>
+              <p>
+                Create an environment that fosters positivity, removing
+                distractions and seeking inspiration.
+              </p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="imgbox">
+              <img src="assets/images/card-img3.PNG" />
+            </div>
+
+            <div class="content">
+              <h2>Build Consistent Habits:</h2>
+              <p>
+                Establish daily routines aligned with your goals to cultivate
+                long-term motivation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="video-section">
+        <div class="video-container">
+          <div class="overlay"></div>
+          <video width="100%" height="auto" autoplay loop muted>
+            <source src="assets/images/video.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </section>
+
+      <section class="todo-list-section">
+        <div class="todo-image-container">
+          <img
+            class="todo-list-image"
+            src="assets/images/todo-img3.png"
+            alt=""
+          />
+          <h2 class="todo-title">
+            Empower Your Day: A To-Do List for Unleashing Your Potential
+          </h2>
+        </div>
+        <div class="todo-list">
+          <div class="gif-container" id="fillImageContainer"></div>
+          <div class="container">
+            <h1>Daily Wins</h1>
+            <div class="input-container">
+              <input class="todo-input" placeholder="Add a new task... " />
+              <button class="add-button">
+                <i class="fa fa-plus-circle"></i>
+              </button>
+            </div>
+            <div class="filters">
+              <div class="filter" data-filter="completed">Complete</div>
+              <div class="filter" data-filter="pending">Incomplete</div>
+              <div class="delete-all">Delete All</div>
+            </div>
+            <div class="todos-container">
+              <ul class="todos"></ul>
+              <img class="empty-image" src="assets/images/todo-gif1.gif" />
+            </div>
+          </div>
+
+          <img class="paper-img" src="assets/images/todo-img1.png" />
+          <img class="icon" src="assets/images/todo-img2.png" />
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/confetti-js"></script>
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>
