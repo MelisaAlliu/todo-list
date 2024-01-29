@@ -3,14 +3,14 @@ const addButton = document.querySelector(".add-button");
 const todosHtml = document.querySelector(".todos");
 const emptyImage = document.querySelector(".empty-image");
 const fillImage = document.querySelector(".fill-image");
-let todosJson = JSON.parse(localStorage.getItem("todos")) || [];
 const deleteAllButton = document.querySelector(".delete-all");
 const filters = document.querySelectorAll(".filter");
+const filtersParent = document.querySelector(".filters");
+
+let todosJson = JSON.parse(localStorage.getItem("todos")) || [];
 let filter = "";
 
-showTodos();
-
-function getTodoHtml(todo, index) {
+const getTodoHtml = (todo, index) => {
   if (filter && filter != todo.status) {
     return "";
   }
@@ -24,42 +24,47 @@ function getTodoHtml(todo, index) {
         <button class="delete-btn" data-index="${index}" onclick="remove(this)"><i class="fa fa-times"></i></button>
       </li>
     `;
-}
+};
 
-function showTodos() {
-  if (todosJson.length == 0) {
+const showTodos = () => {
+  if (todosJson.length === 0) {
     todosHtml.innerHTML = "";
     emptyImage.style.display = "block";
   } else {
     todosHtml.innerHTML = todosJson.map(getTodoHtml).join("");
     emptyImage.style.display = "none";
   }
-}
+};
 
-function addTodo(todo) {
+showTodos();
+
+const addTodo = (todo) => {
   input.value = "";
   todosJson.unshift({ name: todo, status: "pending" });
   localStorage.setItem("todos", JSON.stringify(todosJson));
   showTodos();
-}
+};
 
-input.addEventListener("keyup", (e) => {
+onInputKeyup = (event) => {
   let todo = input.value.trim();
-  if (!todo || e.key != "Enter") {
+  if (!todo || event.key != "Enter") {
     return;
   }
   addTodo(todo);
-});
+};
 
-addButton.addEventListener("click", () => {
+onAddButtonmClick = () => {
   let todo = input.value.trim();
   if (!todo) {
     return;
   }
   addTodo(todo);
-});
+};
 
-function updateStatus(todo) {
+input.addEventListener("keyup", (event) => onInputKeyup(event));
+addButton.addEventListener("click", () => onAddButtonmClick());
+
+const updateStatus = (todo) => {
   let todoName = todo.parentElement.lastElementChild;
   let fillImageIndex = todo.id;
   let fillImageContainer = document.getElementById("fillImageContainer");
@@ -71,55 +76,60 @@ function updateStatus(todo) {
 
   if (todo.checked) {
     todoName.classList.add("checked");
-
-    // Confetti effect
-    let canvas = document.createElement("canvas");
-    let container = document.getElementsByClassName("gif-container")[0];
-    canvas.width = 600;
-    canvas.height = 600;
-
-    container.appendChild(canvas);
-
-    let confetti_button = confetti.create(canvas);
-    confetti_button().then(() => container.removeChild(canvas));
-
-    // Image element
-    let fillImage = document.createElement("img");
-    fillImage.src = "assets/images/todo-gif2.gif";
-    fillImage.className = "fill-image";
-    fillImage.setAttribute("data-index", fillImageIndex);
-    fillImageContainer.appendChild(fillImage);
-
-    setTimeout(() => {
-      fillImage.classList.add("fill-image-hidden");
-    }, 3500);
+    applyConfettiEffect();
+    updateImageElement(fillImageIndex);
   } else {
     todoName.classList.remove("checked");
   }
 
   todosJson[todo.id].status = todo.checked ? "completed" : "pending";
   localStorage.setItem("todos", JSON.stringify(todosJson));
-}
+};
 
-function remove(todo) {
+const applyConfettiEffect = () => {
+  let canvas = document.createElement("canvas");
+  let container = document.getElementsByClassName("gif-container")[0];
+  canvas.width = 600;
+  canvas.height = 600;
+
+  container.appendChild(canvas);
+
+  let confetti_button = confetti.create(canvas);
+  confetti_button().then(() => container.removeChild(canvas));
+};
+
+const updateImageElement = (fillImageIndex) => {
+  let fillImage = document.createElement("img");
+  fillImage.src = "assets/images/todo-gif2.gif";
+  fillImage.className = "fill-image";
+  fillImage.setAttribute("data-index", fillImageIndex);
+  fillImageContainer.appendChild(fillImage);
+
+  setTimeout(() => {
+    fillImage.classList.add("fill-image-hidden");
+  }, 2500);
+};
+
+const remove = (todo) => {
   const index = todo.dataset.index;
   todosJson.splice(index, 1);
   showTodos();
   localStorage.setItem("todos", JSON.stringify(todosJson));
-}
+};
 
-filters.forEach(function (el) {
-  el.addEventListener("click", (e) => {
-    if (el.classList.contains("active")) {
-      el.classList.remove("active");
-      filter = "";
+filtersParent.addEventListener("click", (event) => {
+  const target = event.target;
+  if (target.classList.contains("filter")) {
+    const isActive = target.classList.contains("active");
+    filters.forEach((filter) => filter.classList.remove("active"));
+    if (!isActive) {
+      target.classList.add("active");
+      filter = target.dataset.filter;
     } else {
-      filters.forEach((tag) => tag.classList.remove("active"));
-      el.classList.add("active");
-      filter = e.target.dataset.filter;
+      filter = "";
     }
     showTodos();
-  });
+  }
 });
 
 deleteAllButton.addEventListener("click", () => {
